@@ -1,0 +1,49 @@
+name: weekly-report
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"        # Mondays 03:00 UTC (08:00 Pakistan time)
+  workflow_dispatch:            # manual "Run workflow" button
+  push:
+    branches: [main]            # rebuild whenever you push
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Generate reports
+        run: python run.py
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      - name: Prepare site
+        run: |
+          rm -rf output/cache output/charts
+          echo '<meta http-equiv="refresh" content="0; url=dashboards/index.html">' > output/index.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: output
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

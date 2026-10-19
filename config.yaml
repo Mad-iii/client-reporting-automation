@@ -1,0 +1,77 @@
+agency:
+  name: "Brightline Digital"
+  tagline: "Weekly Performance Report"
+  from_email: "reports@brightline.example"
+  dashboard_base_url: ""     # e.g. https://yourname.github.io/reports ; empty = local file link
+  colors:
+    primary: "#0F2A43"     # deep navy
+    accent: "#C9822B"      # muted copper
+    ink: "#1B2430"         # body text
+    good: "#2F7D5B"
+    bad: "#B3402E"
+    muted: "#6B7280"
+    rule: "#DDD8CC"        # hairlines
+    paper: "#FAF8F4"       # page background (web, email)
+    light: "#F3F0E9"
+
+llm:
+  providers: ["openrouter", "template"]   # tried in order; template always works
+  openrouter_models:                                  # free models rotate, check openrouter.ai/models?q=free
+    - "google/gemma-4-31b-it:free"
+    - "google/gemma-4-26b-a4b-it:free"
+    - "nvidia/nemotron-3-super-120b-a12b:free"
+    - "openrouter/free"
+  ollama_model: "llama3.2:3b"
+  timeout: 60
+
+email:
+  mode: "eml"    # "eml" = save .eml files (no account needed) | "gmail" = send via Gmail app password
+
+clients:
+  - slug: bloom-brew
+    name: "Bloom & Brew Coffee"
+    contact_name: "Sara"
+    contact_email: "sara@bloombrew.example"
+    seed: 11
+    campaigns:
+      - {platform: "Meta Ads",   name: "Retargeting - Cart Abandoners", spend: 90,  cpm: 16, ctr: 0.022, cvr: 0.060, value: 42}
+      - {platform: "Meta Ads",   name: "Prospecting - Lookalike",       spend: 160, cpm: 12, ctr: 0.016, cvr: 0.025, value: 42, shock: {ctr: 0.65}}
+      - {platform: "Google Ads", name: "Brand Search",                  spend: 50,  cpm: 60, ctr: 0.12,  cvr: 0.08,  value: 42}
+      - {platform: "Google Ads", name: "Shopping - Beans",              spend: 110, cpm: 40, ctr: 0.035, cvr: 0.05,  value: 42}
+    ga4: {organic: 520, direct: 260, email: 140, mobile_share: 0.62}
+
+  - slug: northwind-fitness
+    name: "Northwind Fitness"
+    contact_name: "Imran"
+    contact_email: "imran@northwindfit.example"
+    seed: 23
+    campaigns:
+      - {platform: "Meta Ads",   name: "Lead Form - Summer Challenge",       spend: 100, cpm: 11, ctr: 0.014, cvr: 0.09, value: 40}
+      - {platform: "Meta Ads",   name: "Retargeting - Site Visitors",        spend: 40,  cpm: 15, ctr: 0.02,  cvr: 0.08, value: 40}
+      - {platform: "Google Ads", name: "Non-Brand - Personal Training",      spend: 140, cpm: 45, ctr: 0.05,  cvr: 0.07, value: 40, shock: {cvr: 1.35, spend: 1.1}}
+      - {platform: "Google Ads", name: "Brand Search",                       spend: 30,  cpm: 55, ctr: 0.14,  cvr: 0.12, value: 40}
+    ga4: {organic: 480, direct: 200, email: 120, mobile_share: 0.70, shock: {organic_mult: 1.25}}
+
+  - slug: urban-nest
+    name: "Urban Nest Furniture"
+    contact_name: "Hina"
+    contact_email: "hina@urbannest.example"
+    seed: 37
+    campaigns:
+      - {platform: "Meta Ads",   name: "Catalog Sales",             spend: 200, cpm: 18, ctr: 0.012, cvr: 0.012, value: 380}
+      - {platform: "Meta Ads",   name: "Prospecting - Home Office", spend: 150, cpm: 13, ctr: 0.011, cvr: 0.007, value: 380}
+      - {platform: "Google Ads", name: "Shopping - Sofas",          spend: 220, cpm: 38, ctr: 0.03,  cvr: 0.014, value: 380}
+      - {platform: "Google Ads", name: "Display Remarketing",       spend: 60,  cpm: 6,  ctr: 0.004, cvr: 0.006, value: 380}
+    ga4: {organic: 700, direct: 380, email: 160, mobile_share: 0.66, shock: {mobile_bounce_add: 0.14}}
+
+  - slug: peak-dental
+    name: "Peak Dental Clinic"
+    contact_name: "Dr. Ali"
+    contact_email: "dr.ali@peakdental.example"
+    seed: 41
+    campaigns:
+      - {platform: "Google Ads", name: "Emergency Dentist",             spend: 90,  cpm: 75, ctr: 0.06, cvr: 0.05,  value: 150}
+      - {platform: "Google Ads", name: "Generic - Dentist Near Me",      spend: 120, cpm: 50, ctr: 0.04, cvr: 0.007, value: 150}
+      - {platform: "Meta Ads",   name: "Whitening Offer",                spend: 70,  cpm: 14, ctr: 0.017, cvr: 0.03, value: 150}
+      - {platform: "Meta Ads",   name: "Local Awareness",                spend: 40,  cpm: 7,  ctr: 0.008, cvr: 0.01, value: 150}
+    ga4: {organic: 300, direct: 150, email: 60, mobile_share: 0.72}
