@@ -2,7 +2,7 @@ agency:
   name: "Brightline Digital"
   tagline: "Weekly Performance Report"
   from_email: "reports@brightline.example"
-  dashboard_base_url: ""     # e.g. https://yourname.github.io/reports ; empty = local file link
+  dashboard_base_url: "https:///Mad-iii.github.io/client-reporting-automation"     # e.g. https://yourname.github.io/reports ; empty = local file link
   colors:
     primary: "#0F2A43"     # deep navy
     accent: "#C9822B"      # muted copper
