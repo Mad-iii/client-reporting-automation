@@ -1,6 +1,7 @@
 agency:
   name: "Brightline Digital"
   tagline: "Weekly Performance Report"
+  demo_notice: "DEMO: fictional clients and synthetic data"
   from_email: "reports@brightline.example"
   dashboard_base_url: "https:///Mad-iii.github.io/client-reporting-automation"     # e.g. https://yourname.github.io/reports ; empty = local file link
   colors:

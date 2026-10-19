@@ -27,12 +27,14 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Generate reports
-        run: python run.py
+        run: |
+          python run.py
+          python run.py --config config.brand2.yaml --out output/whitelabel
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       - name: Prepare site
         run: |
-          rm -rf output/cache output/charts
+          rm -rf output/cache output/charts output/whitelabel/charts
           echo '<meta http-equiv="refresh" content="0; url=dashboards/index.html">' > output/index.html
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,5 +1,6 @@
 import argparse
 import datetime as dt
+import shutil
 from pathlib import Path
 
 import yaml
@@ -27,15 +28,20 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--client", help="run a single client slug")
     ap.add_argument("--no-llm", action="store_true", help="skip OpenRouter/Ollama, use templates")
+    ap.add_argument("--config", default="config.yaml", help="config file (use another for a white-label sample)")
+    ap.add_argument("--out", default="output", help="output folder")
     args = ap.parse_args()
 
-    cfg = yaml.safe_load(open("config.yaml", encoding="utf-8"))
+    cfg = yaml.safe_load(open(args.config, encoding="utf-8"))
     agency = cfg["agency"]
-    out = Path("output")
+    out = Path(args.out)
     for sub in ("reports", "dashboards", "charts", "emails"):
         (out / sub).mkdir(parents=True, exist_ok=True)
     logo = out / "logo.png"
-    make_logo(logo, agency["name"], agency["colors"])
+    if agency.get("logo_file"):
+        shutil.copy(agency["logo_file"], logo)     # the agency's own PNG logo
+    else:
+        make_logo(logo, agency["name"], agency["colors"])
 
     end = last_full_week_end()
     start = end - dt.timedelta(days=55)           # 8 weeks of history

@@ -1,0 +1,55 @@
+agency:
+  name: "Northlake Media"
+  tagline: "Weekly Performance Report"
+  from_email: "reports@northlake.example"
+  dashboard_base_url: "https://USERNAME.github.io/REPO/whitelabel"
+  demo_notice: "DEMO: fictional clients and synthetic data"
+  # logo_file: "brand2_logo.png"      # optional: use a real PNG instead of the generated logo
+  colors:
+    primary: "#3A1C4C"
+    accent: "#0E8A8F"
+    ink: "#201A26"
+    good: "#2F7D5B"
+    bad: "#B3402E"
+    muted: "#6E6A75"
+    rule: "#E3D9DE"
+    paper: "#FBF8F9"
+    light: "#F4EEF2"
+
+llm:
+  providers: ["openrouter", "template"]   # tried in order; template always works
+  openrouter_models:                                  # free models rotate, check openrouter.ai/models?q=free
+    - "google/gemma-4-31b-it:free"
+    - "google/gemma-4-26b-a4b-it:free"
+    - "nvidia/nemotron-3-super-120b-a12b:free"
+    - "openrouter/free"
+  ollama_model: "llama3.2:3b"
+  timeout: 60
+
+email:
+  mode: "eml"    # "eml" = save .eml files (no account needed) | "gmail" = send via Gmail app password
+
+clients:
+  - slug: bloom-brew
+    name: "Bloom & Brew Coffee"
+    contact_name: "Sara"
+    contact_email: "sara@bloombrew.example"
+    seed: 11
+    campaigns:
+      - {platform: "Meta Ads",   name: "Retargeting - Cart Abandoners", spend: 90,  cpm: 16, ctr: 0.022, cvr: 0.060, value: 42}
+      - {platform: "Meta Ads",   name: "Prospecting - Lookalike",       spend: 160, cpm: 12, ctr: 0.016, cvr: 0.025, value: 42, shock: {ctr: 0.65}}
+      - {platform: "Google Ads", name: "Brand Search",                  spend: 50,  cpm: 60, ctr: 0.12,  cvr: 0.08,  value: 42}
+      - {platform: "Google Ads", name: "Shopping - Beans",              spend: 110, cpm: 40, ctr: 0.035, cvr: 0.05,  value: 42}
+    ga4: {organic: 520, direct: 260, email: 140, mobile_share: 0.62}
+
+  - slug: northwind-fitness
+    name: "Northwind Fitness"
+    contact_name: "Imran"
+    contact_email: "imran@northwindfit.example"
+    seed: 23
+    campaigns:
+      - {platform: "Meta Ads",   name: "Lead Form - Summer Challenge",       spend: 100, cpm: 11, ctr: 0.014, cvr: 0.09, value: 40}
+      - {platform: "Meta Ads",   name: "Retargeting - Site Visitors",        spend: 40,  cpm: 15, ctr: 0.02,  cvr: 0.08, value: 40}
+      - {platform: "Google Ads", name: "Non-Brand - Personal Training",      spend: 140, cpm: 45, ctr: 0.05,  cvr: 0.07, value: 40, shock: {cvr: 1.35, spend: 1.1}}
+      - {platform: "Google Ads", name: "Brand Search",                       spend: 30,  cpm: 55, ctr: 0.14,  cvr: 0.12, value: 40}
+    ga4: {organic: 480, direct: 200, email: 120, mobile_share: 0.70, shock: {organic_mult: 1.25}}

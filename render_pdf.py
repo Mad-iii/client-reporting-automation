@@ -84,7 +84,10 @@ def build_pdf(f, narrative, charts, brand, logo_path, out_path):
         canvas.line(MARGIN, y, PAGE_W - MARGIN, y)
         canvas.line(MARGIN, 14 * mm, PAGE_W - MARGIN, 14 * mm)
         canvas.setFont("Helvetica", 7)
-        canvas.drawString(MARGIN, 10 * mm, f"{brand['name']}  |  Confidential, prepared for {f['client']['name']}")
+        foot = f"{brand['name']}  |  Confidential, prepared for {f['client']['name']}"
+        if brand.get("demo_notice"):
+            foot += f"  |  {brand['demo_notice']}"
+        canvas.drawString(MARGIN, 10 * mm, foot)
         canvas.drawRightString(PAGE_W - MARGIN, 10 * mm, f"Page {doc.page}")
         canvas.restoreState()
 
